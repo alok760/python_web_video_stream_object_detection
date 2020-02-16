@@ -10,10 +10,19 @@ import argparse
 import imutils
 import cv2
 import threading
+import paho.mqtt.client as paho
 
 from flask import Response
 from flask import Flask
 from flask import render_template
+
+def on_publish(client, userdata, mid):
+    print("mid: "+str(mid))
+
+client = paho.Client()
+client.on_publish = on_publish
+client.connect("broker.mqttdashboard.com", 1883)
+client.loop_start()
 
 app = Flask(__name__)
 
@@ -216,6 +225,21 @@ def video_feed():
 	# type (mime type)
 	return Response(generate(),
 		mimetype = "multipart/x-mixed-replace; boundary=frame")
+
+@app.route("/red")
+def red():
+	(rc, mid) = client.publish("test760/key1", "red", qos=1)
+	return "red"
+
+@app.route("/yellow")
+def yellow():
+	(rc, mid) = client.publish("test760/key1", "yellow", qos=1)
+	return "yellow"
+
+@app.route("/green")
+def green():
+	(rc, mid) = client.publish("test760/key1", "green", qos=1)
+	return "green"
 
 t = threading.Thread(target=detect_camera, args=())
 t.daemon = True
