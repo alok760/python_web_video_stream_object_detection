@@ -51,7 +51,7 @@ def detect_camera():
 
 	# initialize the consider set (class labels we care about and want
 	# to count), the object count dictionary, and the frame  dictionary
-	CONSIDER = set(["dog", "person", "car"])
+	CONSIDER = set(["motorbike", "bus", "car", "train", "person"])
 	objCount = {obj: 0 for obj in CONSIDER}
 	frameDict = {}
 
