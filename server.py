@@ -221,7 +221,7 @@ t = threading.Thread(target=detect_camera, args=())
 t.daemon = True
 t.start()
 
-app.run(host=0.0.0.0, port=80,debug=True, threaded=True, use_reloader=False)
+app.run(host='0.0.0.0', port=80,debug=True, threaded=True, use_reloader=False)
 
 
 
