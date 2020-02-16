@@ -154,8 +154,10 @@ def detect_camera():
 
 		# display the montage(s) on the screen
 		for (i, montage) in enumerate(montages):
-			cv2.imshow("Home pet location monitor ({})".format(i),
-				montage)
+			with lock:
+				outputFrame = montage.copy()
+			# cv2.imshow("Home pet location monitor ({})".format(i),
+			# 	montage)
 
 		# detect any kepresses
 		key = cv2.waitKey(1) & 0xFF
